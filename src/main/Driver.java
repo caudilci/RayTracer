@@ -19,6 +19,7 @@ import java.awt.image.BufferedImage;
 
 public class Driver {
     public static void main(String[] args) {
+        Random random = new Random();
         int sampleSize = 8;
         int imageHeight = 920;
         int imageWidth = 1280;
@@ -37,7 +38,7 @@ public class Driver {
                 for(int row = 0; row < sampleSize; row++ ){
                     for(int col = 0; col<sampleSize; col++){
 
-                        Ray ray = new Ray(new Point3D(0.25*(x-imageWidth/2 + (col+0.5)/8), 0.25*(y-imageHeight/2 + (row*0.5)/8), 100), new Vector3D(0.0, 0.0, -1.0));
+                        Ray ray = new Ray(new Point3D(0.25*(x-imageWidth/2 + (col+random.nextFloat())/8), 0.25*(y-imageHeight/2 + (row*random.nextFloat())/8), 100), new Vector3D(0.0, 0.0, -1.0));
                         if(sphere.hit(ray) != 0.0){
                             color.add(sphere.color);
                             buffer.setRGB(x, y, sphere.color.toInteger());
