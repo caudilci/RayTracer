@@ -41,7 +41,6 @@ public class Driver {
                         Ray ray = new Ray(new Point3D(0.25*(x-imageWidth/2 + (col+random.nextFloat())/8), 0.25*(y-imageHeight/2 + (row*random.nextFloat())/8), 100), new Vector3D(0.0, 0.0, -1.0));
                         if(sphere.hit(ray) != 0.0){
                             color.add(sphere.color);
-                            buffer.setRGB(x, y, sphere.color.toInteger());
                         }
                         else{
                         }
