@@ -12,9 +12,9 @@ public class Plane extends GeometricObject {
 
     // Definition of Plane: (p-a)*n=0
     public Plane(Point3D point, Normal normal, Color color) {
-        this.point = point;
-        this.normal = normal;
-        this.color = color;
+        this.point = new Point3D(point);
+        this.normal = new Normal(normal);
+        this.color = new Color(color);
     }
 
     //To find collision: (o+t*d-a)*n=0
