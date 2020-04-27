@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 
 import geometry.GeometricObject;
 import geometry.Sphere;
+import projection.Perspective;
+import projection.Projection;
 import scene.World;
 import utils.Color;
 import utils.Image;
@@ -26,15 +28,14 @@ public class Renderer {
     private World world;
     private Image image;
     private int sampleSize;
-    private Random random;
+    private Projection projection;
     
     public Renderer(){
         //initialize stuff
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        world = new World(1280, 920, 1.0);
+        world = new World(1280, 920, 0.3);
         image = new Image(dateFormat.format(new Date()) + ".png", world.viewPlane.width, world.viewPlane.height);
-
-        random = new Random();
+        projection = new Perspective(new Point3D(0.0, 0.0, 600),new Point3D(0,0,0), 30, world.viewPlane.height);
         sampleSize = 8;
     }
 
@@ -59,8 +60,8 @@ public class Renderer {
         Boolean hit = false;
         for(int row = 0; row < sampleSize; row++ ){
             for(int col = 0; col<sampleSize; col++){
-                Point2D point = sample(row, col, x, y);
-                Ray ray = createRayOrtho(point);
+                Point2D point = regularSample(row, col, x, y);
+                Ray ray = projection.createRay(point);
                 double min = Double.MAX_VALUE;
                 Color temp = new Color(world.background);
                 for (GeometricObject geometricObject : world.objects) {
@@ -78,19 +79,18 @@ public class Renderer {
         return hit ? color: new Color(world.background);
     }
 
-    private Point2D sample(int row, int col, int x, int y){
+    private Point2D regularSample(int row, int col, int x, int y){
         Point2D point = new Point2D(x-world.viewPlane.width/2+(col+0.5)/sampleSize, y-world.viewPlane.height/2 + (row + 0.5)/sampleSize);
         return point;
 
     }
 
-    private Ray createRayOrtho(Point2D point){
-        return new Ray(new Point3D(world.viewPlane.size*point.x, world.viewPlane.size*point.y, 120), new Vector3D(0.0, 0.0, -1.0));
+    private Point2D jitteredSample(int row, int col, int x, int y){
+        Random random = new Random();
+        Point2D point = new Point2D(x-world.viewPlane.width/2+(col+random.nextFloat())/sampleSize, y-world.viewPlane.height/2 + (row + random.nextFloat())/sampleSize);
+        return point;
+
     }
 
-    //TODO
-    private Ray createRayPerspective(Point2D point){
-        return null;
-    }
 
 }
