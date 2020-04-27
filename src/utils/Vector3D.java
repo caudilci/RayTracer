@@ -39,6 +39,10 @@ public class Vector3D {
         return new Vector3D(x-vector.x, y-vector.y, z-vector.z);
     }
 
+    public Vector3D multiply(double scalar){
+        return new Vector3D(x*scalar,y*scalar, z*scalar);
+    }
+
     public double dot(Vector3D vector) {
         return x*vector.x + y*vector.y + z*vector.z;
     }
@@ -49,5 +53,16 @@ public class Vector3D {
 
     public double dot(Normal normal) {
         return x*normal.x + y*normal.y + z*normal.z;
+    }
+
+    public void normalize(){
+        double magnitude = Math.sqrt(x*x + y*y + z*z);
+        x/=magnitude;
+        y/=magnitude;
+        z/=magnitude;
+    }
+
+    public Vector3D cross(Vector3D vector){
+        return new Vector3D(y*vector.z-z*vector.y, z*vector.x - x*vector.z, x*vector.y-y*vector.x);
     }
 }
