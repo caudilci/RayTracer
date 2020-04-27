@@ -55,14 +55,14 @@ public class Renderer {
 
     //currently doesn't work
     private Color trace(int x, int y){
-        Color color = new Color(world.background);
+        Color color = new Color(0.0f,0.0f,0.0f);
         Boolean hit = false;
         for(int row = 0; row < sampleSize; row++ ){
             for(int col = 0; col<sampleSize; col++){
                 Point2D point = sample(row, col, x, y);
                 Ray ray = createRayOrtho(point);
                 double min = Double.MAX_VALUE;
-                Color temp = new Color(0.0f, 0.0f, 0.0f);
+                Color temp = new Color(world.background);
                 for (GeometricObject geometricObject : world.objects) {
                     double hitVal = geometricObject.hit(ray);
                     if(hitVal != 0.0 && hitVal <min){
