@@ -18,4 +18,6 @@ public class Orthographic extends Projection {
         return new Ray(new Point3D(worldSize*point.x, worldSize*point.y, 120), new Vector3D(0.0, 0.0, -1.0));
     }
 
+    //@TODO project along proper orthonormal basis
+
 }
