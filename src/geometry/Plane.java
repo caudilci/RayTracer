@@ -22,6 +22,7 @@ public class Plane extends GeometricObject {
     @Override
     public double hit(Ray ray) {
         double t = point.subtract(ray.origin).dot(normal)/ray.direction.dot(normal);
+        //test if greater than very small number
         if(t > 10E-9){
             return t;
         }
