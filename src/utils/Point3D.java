@@ -31,6 +31,15 @@ public class Point3D {
     }
 
     /**
+     * Adds a vector to this and returns the sum as type Point3D
+     * @param vec - vector to be added
+     * @return sum of this and point
+     */
+    public Point3D add(Vector3D vec) {
+        return new Point3D(x+vec.x, y+vec.y, z+vec.z);
+    }
+
+    /**
      * Subtracts a Point3D from this Point3D and return a new Point3D
      * @param point - subtrahend
      * @return new Point3D equal to the difference of this and point

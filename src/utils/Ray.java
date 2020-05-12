@@ -9,4 +9,8 @@ public class Ray {
         this.direction = new Vector3D(direction);
     }
 
+    public Point3D at(double t){
+        return origin.add(direction.multiply(t));
+    }
+
 }
