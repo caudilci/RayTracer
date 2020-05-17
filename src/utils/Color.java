@@ -37,6 +37,12 @@ public class Color {
         b /= scalar;
     }
 
+    public void multiply(double val){
+        r *= scalar;
+        g *= scalar;
+        b *= scalar;
+    }
+
     public int toInteger(){
         return (int)(r*255)<<16|(int)(g*255)<<8|(int)(b*255);
     }
