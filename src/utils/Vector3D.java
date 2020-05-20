@@ -43,6 +43,10 @@ public class Vector3D {
         return new Vector3D(x*scalar,y*scalar, z*scalar);
     }
 
+    public Vector3D divide(double scalar){
+        return new Vector3D(x/scalar,y/scalar, z/scalar);
+    }
+
     public double dot(Vector3D vector) {
         return x*vector.x + y*vector.y + z*vector.z;
     }
@@ -65,4 +69,11 @@ public class Vector3D {
     public Vector3D cross(Vector3D vector){
         return new Vector3D(y*vector.z-z*vector.y, z*vector.x - x*vector.z, x*vector.y-y*vector.x);
     }
+
+    public Vector3D reflect(Vector3D n){
+        Vector3D reflected = this.subtract(n.multiply(2 * this.dot(n)));
+        return reflected;
+    }
+
+
 }

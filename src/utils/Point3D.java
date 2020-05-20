@@ -63,4 +63,11 @@ public class Point3D {
     public double dot(Normal normal) {
         return x*normal.x + y*normal.y + z*normal.z;
     }
+
+    public double distance(Point3D point){
+        double a = x - point.x;
+        double b = y - point.y;
+        double c = z - point.z;
+        return Math.sqrt((a*a)+(b*b)+(c*c));
+    }
 }

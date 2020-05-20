@@ -38,9 +38,22 @@ public class Color {
     }
 
     public void multiply(double val){
-        r *= scalar;
-        g *= scalar;
-        b *= scalar;
+        r *= val;
+        g *= val;
+        b *= val;
+    }
+
+    public Color multiplyColor(Color color){
+        return new Color(r*color.r, g*color.g, b*color.b);
+    }
+
+    public void clamp(){
+        r = r<0 ? 0: r;
+        r = r>0.999f ? 0.999f: r;
+        g = g<0 ? 0: g;
+        g = g>0.999f ? 0.999f: g;
+        b = b<0 ? 0: b;
+        b = b>0.999f ? 0.999f: b;
     }
 
     public int toInteger(){
