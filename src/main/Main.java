@@ -4,6 +4,8 @@ package main;
 
 public class Main {
     public static void main(String[] args) {
-        GUI gui = new GUI();
+        // GUI gui = new GUI();
+        Renderer renderer = new Renderer();
+        renderer.render();
     }
 }
