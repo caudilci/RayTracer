@@ -75,5 +75,12 @@ public class Vector3D {
         return reflected;
     }
 
+    public Vector3D refract(Vector3D n, double etaiOetat){
+        double cosTheta = Math.min(n.dot(new Vector3D(-x, -y, -z)), 1.0);
+        Vector3D outParallel = this.add(n.multiply(cosTheta)).multiply(etaiOetat);
+        Vector3D outPerp = n.multiply(-Math.sqrt(1.0 - (outParallel.x*outParallel.x + outParallel.y*outParallel.y+outParallel.z*outParallel.z)));
+        return outParallel.add(outPerp);
+    }
+
 
 }
