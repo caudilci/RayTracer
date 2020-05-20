@@ -1,6 +1,7 @@
 package geometry;
 
 import utils.Color;
+import utils.Hit;
 import utils.Normal;
 import utils.Point3D;
 import utils.Ray;
@@ -19,13 +20,18 @@ public class Plane extends GeometricObject {
 
     //To find collision: (o+t*d-a)*n=0
     // t= (o-a)*n/d*n
-    @Override
-    public double hit(Ray ray) {
+    private double hit(Ray ray) {
         double t = point.subtract(ray.origin).dot(normal)/ray.direction.dot(normal);
         //test if greater than very small number
         if(t > 10E-9){
             return t;
         }
         else return 0;
+    }
+
+    @Override
+    public Hit getHit(Ray ray, double tMax, double tMin) {
+        // TODO Auto-generated method stub
+        return new Hit();
     }
 }
