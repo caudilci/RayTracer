@@ -11,14 +11,12 @@ import utils.Vector3D;
 public class Sphere extends GeometricObject {
     public Point3D center;
     public double radius;
-    public Color circle;
     public Material material;
 
-    public Sphere(Point3D center, double radius, Color color){
+    public Sphere(Point3D center, double radius, Material material){
         this.center = center;
         this.radius = radius;
-        this.color = color;
-        material = new Metal(new Color(0.0f, 0.0f, 1.0f), 0.2);
+        this.material = material;
     }
 
     //(p-c)*(p-c) = r^2
