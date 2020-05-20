@@ -21,7 +21,7 @@ public class Perspective extends Projection {
 
     @Override
     public Ray createRay(Point2D point) {
-        Ray ray = new Ray(new Point3D(eye), u.multiply(point.x).add(v.multiply(point.y).subtract(w.multiply(-distance))));
+        Ray ray = new Ray(new Point3D(eye), u.multiply(point.x).add(v.multiply(point.y).subtract(w.multiply(distance))));
         ray.direction.normalize();
         return ray;
     }
