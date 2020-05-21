@@ -21,6 +21,12 @@ public class Vector3D {
         z = vector.z;
     }
 
+    public Vector3D(Normal vector) {
+        x = vector.x;
+        y = vector.y;
+        z = vector.z;
+    }
+
     /**
      * Adds the two vectors together and returns type Vector3D
      * @param vector - vector to be added
@@ -78,8 +84,16 @@ public class Vector3D {
     public Vector3D refract(Vector3D n, double etaiOetat){
         double cosTheta = Math.min(n.dot(new Vector3D(-x, -y, -z)), 1.0);
         Vector3D outParallel = this.add(n.multiply(cosTheta)).multiply(etaiOetat);
-        Vector3D outPerp = n.multiply(-Math.sqrt(1.0 - (outParallel.x*outParallel.x + outParallel.y*outParallel.y+outParallel.z*outParallel.z)));
+        Vector3D outPerp = n.multiply(-Math.sqrt(1.0 - (outParallel.lengthSquared())));
         return outParallel.add(outPerp);
+    }
+
+    public double lengthSquared(){
+        return x*x + y*y + z*z;
+    }
+
+    public double length(){
+        return Math.sqrt(lengthSquared());
     }
 
 
