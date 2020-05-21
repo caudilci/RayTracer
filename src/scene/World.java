@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import geometry.GeometricObject;
-import geometry.Plane;
 import geometry.Sphere;
 import materials.Dielectric;
 import materials.Lambertian;
