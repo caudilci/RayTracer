@@ -39,7 +39,7 @@ public class Renderer {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         world = new World(1280, 920, 0.3);
         image = new Image(dateFormat.format(new Date()) + ".png", world.viewPlane.width, world.viewPlane.height);
-        projection = new Perspective(new Point3D(0.0, 0.0, 600), new Point3D(0, 0, 0), 30, world.viewPlane.height);
+        projection = new Perspective(new Point3D(0.0, 0.0, 200), new Point3D(0, 0, 0), 30, world.viewPlane.height);
         sampleSize = 8;
         depth = 50;
     }
@@ -64,7 +64,7 @@ public class Renderer {
         Color color = new Color(0.0f, 0.0f, 0.0f);
         for (int row = 0; row < sampleSize; row++) {
             for (int col = 0; col < sampleSize; col++) {
-                Point2D point = regularSample(row, col, x, y);
+                Point2D point = jitteredSample(row, col, x, y);
                 Ray ray = projection.createRay(point);
                 color.add(rayColor(ray, world.objects, depth));
             }
@@ -93,25 +93,31 @@ public class Renderer {
             return new Color(0.0f, 0.0f, 0.0f);
         }
         Color color = new Color(0.0f,0.0f,0.0f);
+        Hit hit = new Hit();
+        double closest = Double.POSITIVE_INFINITY;
         for (GeometricObject geometricObject : worldObjects) {
-            Hit hit = geometricObject.getHit(ray, Double.POSITIVE_INFINITY, 0.001);
-            if (hit.hit) {
-                Scatter scatter = hit.material.scatter(ray, hit);
-                if (scatter.scattered) {
-                    return new Color(rayColor(scatter.ray, worldObjects, depth--).multiplyColor(scatter.attenuation));
-                } else
-                    color = new Color(0.0f, 0.0f, 0.0f);
-            } else {
-                Vector3D unitDirection = ray.direction;
-                unitDirection.normalize();
-                double t = 0.5 * (unitDirection.y + 1.0);
-                Color c1 = new Color(1.0f, 1.0f, 1.0f);
-                c1.multiply(1.0 - t);
-                Color c2 = new Color(0.5f, 0.7f, 1.0f);
-                c2.multiply(t);
-                c1.add(c2);
-                color = c1;
+            Hit temp = geometricObject.getHit(ray, closest, 0.001);
+            if(temp.hit){
+                hit = temp;
+                closest = temp.t;
             }
+        }
+        if (hit.hit) {
+            Scatter scatter = hit.material.scatter(ray, hit);
+            if (scatter.scattered) {
+                return rayColor(scatter.ray, worldObjects, depth--).multiplyColor(scatter.attenuation);
+            } else
+                color = new Color(0.0f, 0.0f, 0.0f);
+        } else {
+            Vector3D unitDirection = ray.direction;
+            unitDirection.normalize();
+            double t = 0.5 * (unitDirection.y + 1.0);
+            Color c1 = new Color(1.0f, 1.0f, 1.0f);
+            c1.multiply(1.0 - t);
+            Color c2 = new Color(0.5f, 0.7f, 1.0f);
+            c2.multiply(t);
+            c1.add(c2);
+            color = c1;
         }
         return color;
     }
