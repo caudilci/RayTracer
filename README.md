@@ -5,4 +5,4 @@ Simple Ray Tracer built in java using https://raytracing.github.io/ and material
 
 
 
-The current build has a memory leak, so scenes containing more than 50 or so objects may result in a StackOverflow Error.
+The current build has a memory leak, so scenes containing multiple objects may result in a StackOverflow Error.
