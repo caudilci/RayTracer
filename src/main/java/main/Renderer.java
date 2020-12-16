@@ -38,7 +38,7 @@ public class Renderer {
         // initialize stuff
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
         world = new World(1280, 920, 0.3);
-        image = new Image("/renders/" + dateFormat.format(new Date()) + ".png", world.viewPlane.width, world.viewPlane.height);
+        image = new Image(dateFormat.format(new Date()) + ".png", world.viewPlane.width, world.viewPlane.height);
         projection = new Perspective(new Point3D(0.0, 0.0, 200), new Point3D(0, 0, 0), 30, world.viewPlane.height);
         sampleSize = 8;
         depth = 50;
