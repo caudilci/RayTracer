@@ -15,7 +15,7 @@ public class Perspective extends Projection {
     public Perspective(Point3D eye, Point3D lookAt, double FOV, int height){
         this.eye = new Point3D(eye);
         this.lookAt = new Point3D(lookAt);
-        this.distance = height/2/Math.tan(Math.toRadians(FOV));
+        this.distance = (double)height/2/Math.tan(Math.toRadians(FOV));
         orient();
     }
 
