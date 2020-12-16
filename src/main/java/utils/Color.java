@@ -60,8 +60,4 @@ public class Color {
         return (int)(r*255)<<16|(int)(g*255)<<8|(int)(b*255);
     }
 
-    /**
-     * @TODO add clamp function to handle negative vaues
-     */
-
 }
