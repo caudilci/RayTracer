@@ -17,43 +17,50 @@ public class Color {
         this.r = r;
         this.g = g;
         this.b = b;
+        clamp();
     }
 
     public Color(Color color){
         r = color.r;
         g = color.g;
         b = color.b;
+        clamp();
     }
 
     public void add(Color color) {
         r += color.r;
         g += color.g;
         b += color.b;
+        clamp();
     }
 
     public void divide(int scalar){
         r /= scalar;
         g /= scalar;
         b /= scalar;
+        clamp();
     }
 
     public void multiply(double val){
         r *= val;
         g *= val;
         b *= val;
+        clamp();
     }
 
     public Color multiplyColor(Color color){
-        return new Color(r*color.r, g*color.g, b*color.b);
+        Color result = new Color(r*color.r, g*color.g, b*color.b);
+        result.clamp();
+        return result;
     }
 
     public void clamp(){
         r = r<0 ? 0: r;
-        r = r>0.999f ? 0.999f: r;
+        r = Math.min(r, 0.999f);
         g = g<0 ? 0: g;
-        g = g>0.999f ? 0.999f: g;
+        g = Math.min(g, 0.999f);
         b = b<0 ? 0: b;
-        b = b>0.999f ? 0.999f: b;
+        b = Math.min(b, 0.999f);
     }
 
     public int toInteger(){
