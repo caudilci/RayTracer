@@ -31,9 +31,18 @@ class ColorTest {
     void add() {
         color1.add(color2);
 
-        assertEquals(r1+r2, color1.r);
-        assertEquals(g1+g2, color1.g);
-        assertEquals(b1+b2, color1.b);
+        try {
+            assertEquals(r1 + r2, color1.r);
+            assertEquals(g1 + g2, color1.g);
+            assertEquals(b1 + b2, color1.b);
+        } catch (Exception additionError) {
+            System.out.println("r1: " + r1);
+            System.out.println("r2: " + r2);
+            System.out.println("g1: " + g1);
+            System.out.println("g2: " + g2);
+            System.out.println("b1: " + b1);
+            System.out.println("b2: " + b2);
+        }
     }
 
     @Test
@@ -41,9 +50,16 @@ class ColorTest {
         int scalar = random.nextInt();
         color1.divide(scalar);
 
-        assertEquals(r1/scalar, color1.r);
-        assertEquals(g1/scalar, color1.g);
-        assertEquals(b1/scalar, color1.b);
+        try {
+            assertEquals(r1 / scalar, color1.r);
+            assertEquals(g1 / scalar, color1.g);
+            assertEquals(b1 / scalar, color1.b);
+        } catch (Exception divisionError) {
+            System.out.println("r1: " + r1);
+            System.out.println("g1: " + g1);
+            System.out.println("b1: " + b1);
+            System.out.println("scalar: " + scalar);
+        }
     }
 
     @Test
@@ -51,18 +67,34 @@ class ColorTest {
         double val = random.nextDouble();
         color1.multiply(val);
 
-        assertEquals((float) (r1*val), color1.r);
-        assertEquals((float) (g1*val), color1.g);
-        assertEquals((float) (b1*val), color1.b);
+        try {
+            assertEquals((float) (r1 * val), color1.r);
+            assertEquals((float) (g1 * val), color1.g);
+            assertEquals((float) (b1 * val), color1.b);
+        } catch (Exception multiplicationByValueError) {
+            System.out.println("r1: " + r1);
+            System.out.println("g1: " + g1);
+            System.out.println("b1: " + b1);
+            System.out.println("val: " + val);
+        }
     }
 
     @Test
     void multiplyColor() {
         Color result = color1.multiplyColor(color2);
 
-        assertEquals(r1*r2, result.r);
-        assertEquals(g1*g2, result.g);
-        assertEquals(b1*b2, result.b);
+        try {
+            assertEquals(r1 * r2, result.r);
+            assertEquals(g1 * g2, result.g);
+            assertEquals(b1 * b2, result.b);
+        } catch (Exception multiplicationByColorError) {
+            System.out.println("r1: " + r1);
+            System.out.println("r2: " + r2);
+            System.out.println("g1: " + g1);
+            System.out.println("g2: " + g2);
+            System.out.println("b1: " + b1);
+            System.out.println("b2: " + b2);
+        }
     }
 
     @Test
