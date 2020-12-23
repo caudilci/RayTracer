@@ -25,41 +25,29 @@ class NormalTest {
 
         norm1 = new Normal(x1,y1,z1);
         norm2 = new Normal(x2,y2,z2);
+
+        System.out.println("x1: " + x1);
+        System.out.println("y1: " + y1);
+        System.out.println("z1: " + z1);
+        System.out.println("x2: " + x2);
+        System.out.println("y2: " + y2);
+        System.out.println("z2: " + z2);
     }
 
     @Test
     void dot() {
         double dot = x1*x2 + y1*y2 + z1*z2;
-
-        try {
-            assertEquals(dot, norm1.dot(norm2));
-            assertEquals(dot, norm2.dot(norm1));
-        } catch(Exception dotProductMathException) {
-            System.out.println("x1: " + x1);
-            System.out.println("y1: " + y1);
-            System.out.println("z1: " + z1);
-            System.out.println("x2: " + x2);
-            System.out.println("y2: " + y2);
-            System.out.println("z2: " + z2);
-        }
+        assertEquals(dot, norm1.dot(norm2));
+        assertEquals(dot, norm2.dot(norm1));
     }
 
     @Test
     void normalize() {
         norm1.normalize();
         double magnitude = Math.sqrt(norm1.x*norm1.x + norm1.y*norm1.y + norm1.z*norm1.z);
+        System.out.println("Normalized magnitude: " + magnitude);
+        assertTrue(magnitude>0.99999 && magnitude < 1.00001);
 
-        try {
-            //testing to have the magnitude within a reasonable margin of 1.0
-            assertTrue(magnitude>0.99999 && magnitude < 1.00001);
-        } catch(Exception normalizationException) {
-            System.out.println("x1: " + x1);
-            System.out.println("y1: " + y1);
-            System.out.println("z1: " + z1);
-            System.out.println("Changed x: " + norm1.x);
-            System.out.println("Changed y: " + norm1.y);
-            System.out.println("changed z: " + norm1.z);
-        }
 
 
     }
