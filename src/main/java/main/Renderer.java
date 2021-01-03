@@ -14,6 +14,8 @@ import geometry.GeometricObject;
 import geometry.Sphere;
 import projection.Perspective;
 import projection.Projection;
+import sampling.JitteredSampler;
+import sampling.Sampler;
 import scene.World;
 import utils.Color;
 import utils.Hit;
@@ -33,6 +35,7 @@ public class Renderer {
     private int sampleSize;
     private Projection projection;
     private int depth;
+    private Sampler sampler;
 
     public Renderer() {
         // initialize stuff
@@ -42,6 +45,7 @@ public class Renderer {
         projection = new Perspective(new Point3D(0.0, 0.0, 200), new Point3D(0, 0, 0), 30, world.viewPlane.height);
         sampleSize = 8;
         depth = 50;
+        sampler = new JitteredSampler(world.viewPlane.height, world.viewPlane.width, sampleSize);
     }
 
     public void render() {
@@ -64,7 +68,7 @@ public class Renderer {
         Color color = new Color(0.0f, 0.0f, 0.0f);
         for (int row = 0; row < sampleSize; row++) {
             for (int col = 0; col < sampleSize; col++) {
-                Point2D point = jitteredSample(row, col, x, y);
+                Point2D point = sampler.sample(row, col, x, y);
                 Ray ray = projection.createRay(point);
                 color.add(rayColor(ray, world.objects, depth));
             }
@@ -73,26 +77,11 @@ public class Renderer {
         return color;
     }
 
-    private Point2D regularSample(int row, int col, int x, int y) {
-        Point2D point = new Point2D(x - world.viewPlane.width / 2 + (col + 0.5) / sampleSize,
-                y - world.viewPlane.height / 2 + (row + 0.5) / sampleSize);
-        return point;
-
-    }
-
-    private Point2D jitteredSample(int row, int col, int x, int y) {
-        Random random = new Random();
-        Point2D point = new Point2D(x - world.viewPlane.width / 2 + (col + random.nextFloat()) / sampleSize,
-                y - world.viewPlane.height / 2 + (row + random.nextFloat()) / sampleSize);
-        return point;
-
-    }
-
     private Color rayColor(Ray ray, ArrayList<GeometricObject> worldObjects, int depth) {
         if (depth <= 0) {
             return new Color(0.0f, 0.0f, 0.0f);
         }
-        Color color = new Color(0.0f,0.0f,0.0f);
+        Color color;
         Hit hit = new Hit();
         double closest = Double.POSITIVE_INFINITY;
         for (GeometricObject geometricObject : worldObjects) {
@@ -105,7 +94,7 @@ public class Renderer {
         if (hit.hit) {
             Scatter scatter = hit.material.scatter(ray, hit);
             if (scatter.scattered) {
-                return rayColor(scatter.ray, worldObjects, depth--).multiplyColor(scatter.attenuation);
+                return rayColor(scatter.ray, worldObjects, depth).multiplyColor(scatter.attenuation);
             } else
                 color = new Color(0.0f, 0.0f, 0.0f);
         } else {
