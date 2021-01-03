@@ -1,17 +1,10 @@
 package main;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Time;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
-
 import geometry.GeometricObject;
-import geometry.Sphere;
 import projection.Perspective;
 import projection.Projection;
 import sampling.JitteredSampler;
@@ -25,8 +18,6 @@ import utils.Point3D;
 import utils.Ray;
 import utils.Scatter;
 import utils.Vector3D;
-
-import java.awt.image.BufferedImage;
 
 public class Renderer {
 
