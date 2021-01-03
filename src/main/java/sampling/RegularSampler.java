@@ -4,7 +4,7 @@ import utils.Point2D;
 
 import java.util.Random;
 
-public class RegularSampler {
+public class RegularSampler extends Sampler {
     private int worldWidth, worldHeight, sampleSize;
 
     public RegularSampler(int worldHeight, int worldWidth, int sampleSize){

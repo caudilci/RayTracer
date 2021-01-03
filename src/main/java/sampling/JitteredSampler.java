@@ -4,7 +4,7 @@ import utils.Point2D;
 
 import java.util.Random;
 
-public class JitteredSampler {
+public class JitteredSampler extends Sampler{
 
     private int worldWidth, worldHeight, sampleSize;
     private Random random;
